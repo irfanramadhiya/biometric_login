@@ -1,4 +1,4 @@
-import 'package:biometric_login/model/login_credential.dart';
+import 'package:biometric_login/models/login_credential.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecureStorage {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:biometric_login/pages/home.dart';
-import 'package:biometric_login/model/login_credential.dart';
+import 'package:biometric_login/models/login_credential.dart';
 import 'package:biometric_login/utils/secure_storage.dart';
 import 'package:biometric_login/api/service.dart';
 import 'package:crypto/crypto.dart';
