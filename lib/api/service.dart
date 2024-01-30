@@ -7,7 +7,7 @@ class Service {
 
   Future<bool> postLogin(String username, String password, String secretKey,
       String checksum) async {
-    var response = await http.post(Uri.parse("$baseUrl//api/users"),
+    var response = await http.post(Uri.parse("$baseUrl/api/users"),
         body: jsonEncode({
           "username": username,
           "password": password,
