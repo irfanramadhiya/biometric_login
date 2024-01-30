@@ -7,6 +7,7 @@ import 'package:biometric_login/api/service.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:local_auth/local_auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,7 +23,6 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool passwordVisible = false;
-  // String errorMessage = "";
 
   @override
   void initState() {
@@ -32,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> showMyDialog(
       BuildContext context, bool rememberMeChecked) async {
+    String secretKey = dotenv.get("SECRET_KEY", fallback: "");
     return showDialog(
       context: context,
       barrierDismissible: true,
@@ -105,13 +106,6 @@ class _LoginPageState extends State<LoginPage> {
                             rememberMeChecked = newValue!;
                           });
                         }),
-                    // SizedBox(
-                    //   height: 5,
-                    // ),
-                    // Text(
-                    //   errorMessage,
-                    //   style: const TextStyle(color: Colors.red),
-                    // )
                   ]),
             );
           }),
@@ -122,7 +116,6 @@ class _LoginPageState extends State<LoginPage> {
                 bool isValid = formKey.currentState!.validate();
                 String username = usernameController.text;
                 String password = passwordController.text;
-                String secretKey = "-"; //TODO: change to env later
                 if (isValid) {
                   submitData(
                       username,
@@ -140,8 +133,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   String generateChecksum(String username, String password, String secretKey) {
-    String content =
-        "$username | $password | $secretKey"; //TODO: generate env file
+    String content = "$username | $password | $secretKey";
     return md5.convert(utf8.encode(content)).toString();
   }
 
@@ -161,9 +153,6 @@ class _LoginPageState extends State<LoginPage> {
         content: Text("Failed login"),
         backgroundColor: Colors.red,
       ));
-      // setState(() {
-      //   errorMessage = "Login failed";
-      // });
     }
   }
 
